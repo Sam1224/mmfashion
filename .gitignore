@@ -138,3 +138,6 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+# api_server
+api_server/*
