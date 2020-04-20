@@ -21,9 +21,13 @@ class ClothesRetriever(object):
             self.gallery_idx2im[i] = img.strip('\n')
 
     def show_topk_retrieved_images(self, retrieved_idxes):
+        paths = []
         for idx in retrieved_idxes:
             retrieved_img = self.gallery_idx2im[idx]
-            print(os.path.join(self.data_dir, self.img_path, retrieved_img))
+            path = os.path.join(self.data_dir, self.img_path, retrieved_img)
+            paths.append(path)
+            print(path)
+        return paths
 
     def show_retrieved_images(self, query_feat, gallery_embeds):
         query_dist = []
@@ -35,6 +39,8 @@ class ClothesRetriever(object):
         query_dist = np.array(query_dist)
         order = np.argsort(query_dist)
 
+        paths = []
         for topk in self.topks:
             print('Retrieved Top%d Results' % topk)
-            self.show_topk_retrieved_images(order[:topk])
+            paths = self.show_topk_retrieved_images(order[:topk])
+        return paths
